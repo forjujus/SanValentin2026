@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two Letters From My Heart</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noteworthy', 'Comic Sans MS', cursive;
+            background: linear-gradient(135deg, #4a1a1a 0%, #7d2828 50%, #4a1a1a 100%);
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding: 60px 20px;
+        }
+
+        #heartsCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 3.5em;
+            color: #ffb3c1;
+            text-align: center;
+            margin-bottom: 60px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .letter-section {
+            background: rgba(139, 35, 50, 0.3);
+            border: 2px solid #ffb3c1;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .letter-section:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .letter-section h4 {
+            color: #ffb3c1;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .letter-section p {
+            font-size: 1.4em;
+            color: #ffd4dc;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .signature {
+            text-align: right;
+            margin-top: 30px;
+            font-style: italic;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, #8b2332 0%, #b8374a 100%);
+            color: #fff;
+            padding: 15px 40px;
+            font-size: 1.3em;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            font-family: 'Noteworthy', 'Comic Sans MS', cursive;
+            display: inline-block;
+            margin: 40px auto;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .button-container {
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 2.5em;
+                margin-bottom: 40px;
+            }
+
+            .letter-section {
+                padding: 25px;
+            }
+
+            .letter-section h4 {
+                font-size: 1.8em;
+            }
+
+            .letter-section p {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="heartsCanvas"></canvas>
+
+    <div class="container">
+        <h2>Two Letters From My Heart</h2>
+        
+        <div class="letter-section">
+            <h4>Letter One: Why I Love You</h4>
+            <p>My dearest,</p>
+            <p>Where do I even begin? You walked into my life and everything changed. Your smile lights up my darkest days, your laugh is my favorite sound in the world, and your presence makes everything better.</p>
+            <p>I love the way you scrunch your nose when you're thinking, how you get excited about the little things, and how you always know exactly what to say when I need it most. You're intelligent, kind, beautiful inside and out, and being with you feels like home.</p>
+            <p>You make me want to be a better person every single day. Thank you for being you, for choosing me, for making life an adventure worth living.</p>
+            <p class="signature">Forever yours,<br>Your biggest fan</p>
+        </div>
+
+        <div class="letter-section">
+            <h4>Letter Two: Our Future Together</h4>
+            <p>My love,</p>
+            <p>When I think about the future, I see you in every moment. I see us traveling to places we've always dreamed of, dancing in our kitchen at midnight, building a home filled with laughter and love.</p>
+            <p>I see Sunday mornings with coffee and lazy conversations, adventure-filled weekends, and quiet evenings just being together. I see us growing old, still holding hands, still making each other laugh, still choosing each other every single day.</p>
+            <p>This Valentine's Day is just the beginning of forever. I promise to love you in all the ways you deserve, to support your dreams, to be your partner in everything, and to remind you every day how incredible you are.</p>
+            <p>You're my best friend, my greatest love, my forever person. Here's to our beautiful future together.</p>
+            <p class="signature">All my love, always,<br>Yours forever</p>
+        </div>
+
+        <div class="button-container">
+            <a href="cards.html" class="back-btn">← Back to Cards</a>
+        </div>
+    </div>
+
+    <script>
+        // Animated hearts canvas background
+        const canvas = document.getElementById('heartsCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const hearts = [];
+        const heartCount = 30;
+
+        class Heart {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 20 + 10;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1;
+                this.opacity = Math.random() * 0.3 + 0.1;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = '#ffb3c1';
+                ctx.font = `${this.size}px Arial`;
+                ctx.fillText('♥', this.x, this.y);
+                ctx.restore();
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+        }
+
+        for (let i = 0; i < heartCount; i++) {
+            hearts.push(new Heart());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            hearts.forEach(heart => {
+                heart.update();
+                heart.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
